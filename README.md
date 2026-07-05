@@ -2,7 +2,7 @@
 
 A fully functional currency converter web application built using **HTML, CSS, JavaScript, Tailwind CSS, and Vite**. The application allows users to convert amounts between different currencies using real-time exchange rate data from an external API.
 
-**Live Demo:** https://exchange-app.adeelalam10100.workers.dev/
+**Live Demo:** https://currency-exchange-app.adeelalam10100.workers.dev/
 
 ## Features
 
