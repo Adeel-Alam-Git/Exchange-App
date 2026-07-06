@@ -31,8 +31,6 @@ A modern and responsive currency converter built with **HTML, JavaScript, Tailwi
 ---
 
 ## 📸 Screenshot
-
-> Add a screenshot of the application here.
 ![Currency Exchange App - Desktop View](./src/assets/Screenshot_01.png)
 ![Currency Exchange App - Mobile View](./src/assets/Screenshot_02.png)
 
