@@ -49,18 +49,6 @@ To keep API credentials secure, the project uses **Cloudflare Pages Functions** 
 
 ---
 
-# 📸 Screenshots
-
-## Desktop View
-
-![Desktop View](/src/assets/Screenshot_01.png)
-
-## Mobile View
-
-![Mobile View](/src/assets/Screenshot_02.png)
-
----
-
 # 🏗️ Project Architecture
 
 ```
