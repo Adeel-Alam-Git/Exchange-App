@@ -1,80 +1,112 @@
 # 💱 Currency Exchange App
 
-A modern and responsive currency converter built with **HTML, JavaScript, Tailwind CSS, and Vite**. The application fetches real-time exchange rates from **ExchangeRate-API** and allows users to quickly convert amounts between multiple international currencies.
+A modern and responsive currency converter built with **React, JavaScript, Tailwind CSS, and Vite**. The application fetches real-time exchange rates from **ExchangeRate-API** and allows users to quickly convert amounts between multiple international currencies.
 
-The project uses **Cloudflare Pages Functions as a serverless API layer** to securely handle API requests and keep sensitive API credentials away from the client-side code.
+To keep API credentials secure, the project uses **Cloudflare Pages Functions** as a serverless backend that proxies requests to ExchangeRate-API without exposing the API key to the client.
 
 🔗 **Live Demo:** https://currency-exchange-app-30o.pages.dev/
 
 ---
 
-## ✨ Features
+# ✨ Features
 
-* 🌍 Convert between multiple international currencies
-* 📈 Real-time exchange rates powered by ExchangeRate-API
-* 🔄 One-click currency swap functionality
-* ⚡ Instant conversion while typing
-* 📅 Displays the latest exchange rate update date
-* 🏳️ Displays country and currency names for easier selection
-* 📱 Fully responsive design for desktop and mobile devices
-* ⚠️ User-friendly error handling for network and API failures
-* 🔐 Secure API key handling through Cloudflare Pages Functions
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-
-* HTML5
-* JavaScript (ES6+)
-* Tailwind CSS
-* Vite
-* Font Awesome
-
-### Backend / Serverless
-
-* Cloudflare Pages Functions
-* Environment variables
-* Serverless API proxy pattern
-
-### API
-
-* ExchangeRate-API
+- 🌍 Convert between 160+ international currencies
+- 📈 Real-time exchange rates powered by ExchangeRate-API
+- 🔄 One-click currency swap
+- ⚡ Instant conversion as you type
+- 📅 Displays the latest exchange rate update
+- 🏳️ Searchable currency selector with country and currency names
+- 📱 Fully responsive design for desktop, tablet, and mobile
+- ⚠️ Graceful error handling for API and network failures
+- 🔐 Secure API key management using Cloudflare Pages Functions
+- ⚛️ Built with reusable React components
+- 🧠 Global state management using React Context API
+- 🚀 Fast development experience powered by Vite
 
 ---
 
-## 📸 Screenshots
-### Desktop View
+# 🛠️ Tech Stack
+
+## Frontend
+
+- React
+- JavaScript (ES6+)
+- Tailwind CSS
+- Vite
+- Axios
+- React Context API
+- Font Awesome
+
+## Backend / Serverless
+
+- Cloudflare Pages Functions
+- Environment Variables
+- Serverless API Proxy Pattern
+
+## API
+
+- ExchangeRate-API
+
+---
+
+# 📸 Screenshots
+
+## Desktop View
+
 ![Desktop View](/src/assets/Screenshot_01.png)
 
-### Mobile View
+## Mobile View
+
 ![Mobile View](/src/assets/Screenshot_02.png)
 
 ---
 
-# 🏗️ API Architecture
+# 🏗️ Project Architecture
 
-Instead of exposing the ExchangeRate-API key directly in the browser, the application uses a Cloudflare Pages Function as a secure middle layer.
-
-The request flow:
-
-```text
-User Interface
-      |
-      | fetch("/api/latest?base=USD")
-      ↓
+```
+User Interface (React)
+        │
+        │ Axios Request
+        ▼
+ /api/latest?base=USD
+        │
+        ▼
 Cloudflare Pages Function
-      |
-      | Uses context.env.EXCHANGE_API_KEY
-      ↓
+        │
+        │ Uses
+        │ context.env.EXCHANGE_API_KEY
+        ▼
 ExchangeRate-API
-      |
-      ↓
-Currency exchange data returned to the application
+        │
+        ▼
+Returns exchange rate data
+        │
+        ▼
+React Context updates UI
 ```
 
-This approach keeps the API credential secure while allowing the frontend application to consume live exchange rate data.
+This architecture keeps API credentials secure while allowing the frontend to consume live exchange rate data efficiently.
+
+---
+
+# 📁 Project Structure
+
+```text
+.
+├── functions/
+│   └── api/
+│       └── latest.js
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── context/
+│   ├── App.jsx
+│   └── main.jsx
+├── .dev.vars
+├── package.json
+└── vite.config.js
+```
 
 ---
 
@@ -82,10 +114,8 @@ This approach keeps the API credential secure while allowing the frontend applic
 
 ## Prerequisites
 
-Make sure you have installed:
-
-* Node.js
-* npm
+- Node.js (v18 or newer)
+- npm
 
 ---
 
@@ -107,115 +137,134 @@ npm install
 
 ---
 
-## 🔐 Environment Variables
+# 🔐 Environment Variables
 
-The application uses Cloudflare Pages Functions to access the API key securely.
-
-For local Cloudflare Function development, create a `.dev.vars` file in the project root:
+Create a `.dev.vars` file in the project root:
 
 ```env
 EXCHANGE_API_KEY=your_api_key
 ```
 
-The function accesses the variable using:
+The Cloudflare Function accesses the key using:
 
 ```javascript
 context.env.EXCHANGE_API_KEY
 ```
 
-For production deployment, add the variable as a secret in:
+For production deployment, add the variable in:
 
 ```
-Cloudflare Pages
+Cloudflare Dashboard
+→ Pages
+→ Your Project
 → Settings
 → Environment Variables
 ```
 
 ---
 
-## 💻 Development
+# 💻 Development
 
-Start the Vite development server:
+Since this project uses **Cloudflare Pages Functions** as a serverless backend, the standard Vite development server (`npm run dev`) does **not** run the `/api` functions.
+
+To run the application locally with live exchange rates, start the Cloudflare Pages development server instead:
 
 ```bash
-npm run dev
+npm run pages:dev
 ```
+
+This command serves both the React application and the Cloudflare Pages Functions, allowing API requests to work correctly.
+
+> **Note:** Running only:
+>
+> ```bash
+> npm run dev
+> ```
+>
+> will start the Vite development server, but requests to `/api/latest` will fail because the Cloudflare Pages Functions are not running.
 
 ---
 
-## 📦 Production Build
+# 📦 Production Build
 
-Create an optimized production build:
+Build the application:
 
 ```bash
 npm run build
+```
+
+Preview the production build locally:
+
+```bash
+npm run preview
 ```
 
 ---
 
 # 🌐 API
 
-This project uses **ExchangeRate-API** to retrieve live currency conversion rates.
+The frontend communicates with a secure serverless endpoint instead of directly calling ExchangeRate-API.
 
-The frontend communicates with a custom API endpoint:
+Example request:
 
-```
+```text
 /api/latest?base=USD
 ```
 
-The endpoint is handled by a Cloudflare Pages Function:
+Cloudflare handles the request through:
 
-```
+```text
 functions/
 └── api/
     └── latest.js
 ```
 
-The function securely adds the API key and forwards the request to ExchangeRate-API.
+The function appends the API key securely before forwarding the request to ExchangeRate-API.
 
 ---
 
 # 📚 What I Learned
 
-While building this project, I gained hands-on experience with:
+Building this project strengthened my understanding of:
 
-* Working with REST APIs using the Fetch API
-* Handling asynchronous JavaScript with `async` / `await`
-* Managing errors using `try...catch` and custom error classes
-* DOM manipulation and event-driven programming
-* Building responsive interfaces with Tailwind CSS
-* Using modern frontend tooling with Vite
-* Working with environment variables
-* Protecting API credentials using serverless functions
-* Creating a frontend application with a lightweight backend layer
-* Deploying a production-ready application using Cloudflare Pages
+- Building modern applications with React
+- Creating reusable React components
+- Managing shared state using React Context API
+- Consuming REST APIs with Axios
+- Handling asynchronous operations using async/await
+- Error handling and user feedback
+- Responsive UI development with Tailwind CSS
+- Structuring scalable React projects
+- Protecting API keys using serverless functions
+- Working with Cloudflare Pages Functions
+- Managing environment variables
+- Deploying production-ready applications with Cloudflare Pages
 
 ---
 
 # 🚀 Deployment
 
-The application is deployed using **Cloudflare Pages**.
+The project is deployed on **Cloudflare Pages**.
 
-The deployment process includes:
+Deployment includes:
 
-* Building the application with Vite
-* Deploying the generated production assets
-* Deploying Cloudflare Pages Functions
-* Managing secure environment variables for production
+- Building the React application with Vite
+- Deploying Cloudflare Pages Functions
+- Configuring secure environment variables
+- Serving the application through Cloudflare's global CDN
 
 ---
 
 # 🔮 Future Improvements
 
-Possible improvements for future versions:
-
-* Migrate the frontend to React
-* Add currency exchange history charts
-* Add favorite currencies
-* Add offline caching
-* Add automated testing
-* Improve accessibility features
-* Add more advanced API response handling
+- 📊 Historical exchange rate charts
+- ⭐ Favorite currencies
+- 🔍 Advanced currency search and filtering
+- 🌐 Multi-language support
+- ♿ Improved accessibility (WCAG)
+- 🧪 Unit and integration testing
+- 💾 Offline support using service workers
+- 📱 Progressive Web App (PWA)
 
 ---
 
@@ -224,3 +273,16 @@ Possible improvements for future versions:
 This project is licensed under the MIT License.
 
 Feel free to fork, modify, and use it for learning or personal projects.
+
+---
+
+## 👨‍💻 Author
+
+**Adeel Alam**
+
+- GitHub: https://github.com/Adeel-Alam-Git
+- LinkedIn: https://www.linkedin.com/in/adeel-me
+
+---
+
+⭐ If you found this project useful, consider giving it a star on GitHub!

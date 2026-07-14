@@ -5,5 +5,7 @@ export async function onRequestGet(context) {
     const url = new URL(context.request.url);
     const base = url.searchParams.get("base");
 
-    return fetch(`${BASE_URL}${base}`);
+    const response = await fetch(`${BASE_URL}${base}`);
+
+    return response;
 }

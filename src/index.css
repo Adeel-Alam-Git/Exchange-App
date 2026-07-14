@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+    --color-ink: #F4F1EA;
+    --color-body-bg: #0B2545;
+    --color-root-bg: #07182F;
+    --color-my-yellow: #FFB627;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image: 
+        repeating-linear-gradient(0deg, #999 0 1px, transparent 1px 32px),
+        repeating-linear-gradient(90deg, #999 0 1px, transparent 1px 32px);
+    opacity: 40%;
+}
+
+::selection {
+    background-color: var(--color-my-yellow);
+    color: black;
+}
+
+address a {
+    transition: transform 300ms;
+}
+
+address a:hover {
+    scale: 1.1;
+    color: var(--color-my-yellow);
+}
+
+address a:active {
+    scale: 0.95;
+    color: #b47800;
+}
