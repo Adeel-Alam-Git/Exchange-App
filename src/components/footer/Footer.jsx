@@ -3,10 +3,7 @@ const Footer = () => {
     return (
         <footer className="p-8 flex flex-col justify-center items-center md:flex-row md:justify-between">
 
-            <div className="flex flex-col justify-center items-center mb-2 md:mb-0 md:flex-row md:gap-2 ">
-                <p>&copy; 2026 Adeel Alam.</p>
                 <p>Licensed under the MIT License.</p>
-            </div>
 
             <address className="text-ink text-[1.7rem] flex flex-row items-center gap-2">
                 <a href="https://www.github.com/Adeel-Alam-Git/" target="_blank" rel="noopener noreferrer">
